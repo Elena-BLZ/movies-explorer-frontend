@@ -1,0 +1,80 @@
+.about-me {
+    width: 100%;
+    padding: 107px 70px 100px;
+    box-sizing: border-box;
+}
+
+.about-me__section-title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    border-bottom: 1px solid black;
+    padding-bottom: 23px;
+    margin: 0 0 66px;
+}
+
+.about-me__student-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.about-me__info-container {
+    max-width: 600px;
+}
+
+.about-me__name {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    margin: 0 0 18px;
+}
+
+.about-me__job {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+    margin: 0 0 26px;
+}
+
+.about-me__description {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    margin: 0 0 99px;
+}
+
+.about-me__links {
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-me__link {
+    text-decoration: none;
+    color: black;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.04em;
+    padding: 0 20px 0 0;
+    margin: 0;
+}
+
+.about-me__photo {
+    width: 270px;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}

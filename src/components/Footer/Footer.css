@@ -1,0 +1,51 @@
+.footer {
+    width: 100%;
+    padding: 67px 70px 20px;
+    box-sizing: border-box;
+}
+
+.footer__text {
+    width: 100%;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #A0A0A0;
+    padding: 0 0 20px;
+    border-bottom: 1px solid #E8E8E8;
+    margin: 0 auto 20px;
+}
+
+.footer__container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__date {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer__links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+}
+
+.footer__link {
+    text-decoration: none;
+    color: black;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: right;
+    padding: 0 0 0 20px;
+}

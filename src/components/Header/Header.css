@@ -1,0 +1,15 @@
+.header {
+    min-height: 72px;
+    border: 1px solid blue;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F3C1F8;
+}
+
+.header__logo {
+    max-height: 38px;
+    margin-left: 70px;
+
+}
