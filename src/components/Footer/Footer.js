@@ -10,17 +10,17 @@ export default function Footer() {
       <div className="footer__container">
         <p className="footer__date">© 2022</p>
         <ul className="footer__links">
-          <li>
+          <li className="footer__link-container">
             <a href="#" aria-label="" className="footer__link">
               Яндекс.Практикум
             </a>
           </li>
-          <li>
+          <li className="footer__link-container">
             <a href="#" aria-label="" className="footer__link">
               GitHub
             </a>
           </li>
-          <li>
+          <li className="footer__link-container">
             <a href="#" aria-label="" className="footer__link">
               Facebook
             </a>

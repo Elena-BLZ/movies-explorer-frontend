@@ -18,6 +18,3 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 425px) {
-  .app__header {}
-}

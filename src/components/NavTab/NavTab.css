@@ -21,6 +21,20 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
-    letter-spacing: -0.04em;
+}
 
+@media (max-width: 770px) {
+    .nav-tab__links {
+        max-width: 273px;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav-tab__links {
+        max-width: 213px;
+    }
+
+    .nav-tab__link {
+        font-size: 11px;
+    }
 }

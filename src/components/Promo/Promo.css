@@ -1,8 +1,9 @@
 .promo {
-    min-height: 524px;
+    min-height: 526px;
     width: 100%;
     background-color: #F3C1F8;
     position: relative;
+    display: flex;
 }
 
 .promo__title {
@@ -12,7 +13,7 @@
     line-height: 58px;
     max-width: 730px;
     margin: auto;
-    padding: 184px 0 0;
+    padding: 0 0 40px;
     text-align: center;
     z-index: 2;
     letter-spacing: -0.04em;
@@ -28,4 +29,37 @@
     height: 320px;
     width: 320px;
     z-index: 1;
+}
+
+@media (max-width: 770px) {
+    .promo {
+        min-height: 786px;
+    }
+
+    .promo__title {
+        padding-top: 27px;
+    }
+
+    .promo__landing-logo {
+        margin-top: -166px;
+    }
+}
+
+@media (max-width: 420px) {
+    .promo {
+        min-height: 572px;
+    }
+
+    .promo__landing-logo {
+        height: 248px;
+        width: 248px;
+        margin-top: -140px;
+        margin-left: -124px;
+    }
+
+    .promo__title {
+        font-size: 31px;
+        line-height: 39px;
+        padding-top: 5px;
+    }
 }

@@ -57,3 +57,44 @@
     letter-spacing: -0.04em;
 
 }
+
+@media (max-width: 770px) {
+    .portfolio {
+        padding: 0 50px 90px;
+    }
+
+    .portfolio__item-name {
+        font-size: 28px;
+    }
+
+    .portfolio__item {
+        margin-bottom: 19px;
+    }
+}
+
+@media (max-width: 540px) {
+    .portfolio {
+        padding: 0 14px 70px;
+    }
+
+    .portfolio__section-title {
+        margin-bottom: 40px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .portfolio__item-name {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .portfolio__item-pic {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .portfolio__item {
+        padding-bottom: 19px;
+        margin-bottom: 20px;
+    }
+}

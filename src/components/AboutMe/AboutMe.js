@@ -7,6 +7,11 @@ export default function AboutMe() {
     <section className="about-me">
       <h2 className="about-me__section-title">Студент</h2>
       <div className="about-me__student-card">
+      <img
+          className="about-me__photo"
+          src={studentPhoto}
+          alt="Фото студента"
+        ></img>
         <div className="about-me__info-container">
           <h3 className="about-me__name">Елена Блаженских</h3>
           <p className="about-me__job">Веб-разработчик, 34 года</p>
@@ -16,7 +21,8 @@ export default function AboutMe() {
             мозге и сына. Сейчас решила вернуться в IT после долгого перерыва,
             заканчиваю курс по веб-разработке и ищу работу.
           </p>
-          <ul className="about-me__links">
+        </div>
+        <ul className="about-me__links">
             <li>
               <a href="#" className="about-me__link">
                 Facebook
@@ -28,12 +34,6 @@ export default function AboutMe() {
               </a>
             </li>
           </ul>
-        </div>
-        <img
-          className="about-me__photo"
-          src={studentPhoto}
-          alt="Фото студента"
-        ></img>
       </div>
     </section>
   );
