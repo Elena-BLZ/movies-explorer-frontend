@@ -1,0 +1,59 @@
+.search-form {
+    margin: 70px 70px 10px;
+   padding: 0 0 69px;
+   border-bottom: solid 1px #E8E8E8;
+}
+.search-form__container {
+ padding: 25px 30px 25px 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #FDFDFD;
+box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+border-radius: 9px;
+height: 72px;
+
+}
+.search-form__icon {
+    width: 19px;
+    height: 19px;
+    margin: 0 16px 0 0;
+
+}
+.search-form__query {
+    border: none;
+    font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 20px;
+color: #A0A0A0;
+}
+
+.search-form__find-button {
+    height: 34px;
+
+background: #000000;
+border-radius: 48px;
+font-style: normal;
+font-weight: 500;
+font-size: 11px;
+text-align: center;
+
+color: #FFFFFF;
+border: none;
+padding: 8px 10px;
+margin: 0 0 0 21px ;
+}
+
+.search-form__film-search {
+    border: none;
+    border-right: solid 1px #CBCBCB;
+    display: grid;
+    grid-template-columns: 34px 1fr 80px;
+    align-items: center;
+    padding: 0 19px 0 0;
+    box-sizing: border-box;
+    margin: 0 29px 0 0;
+    flex-grow: 1;
+}
