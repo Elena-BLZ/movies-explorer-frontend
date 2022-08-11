@@ -4,11 +4,13 @@ import "./Header.css";
 import "../App/App.css"
 /* import NavBar from "./NavBar"; */
 
-export default function Header({theme}) {
-    const className = "header app__header "+ "header_theme_"+theme; 
+export default function Header({theme, style}) {
+    const headerClassName = "header app__header "+ "header_theme_"+theme +" header_style_"+style;
+    const logoClassName = "header__logo header__logo_style_"+style; 
+ 
   return (
-    <header className={className}>
-      <img src={logo} alt="Логотип" className="header__logo"></img>
+    <header className={headerClassName}>
+      <img src={logo} alt="Логотип" className={logoClassName}></img>
     {/* <NavBar {...props}></NavBar>  */}
     </header>
   );

@@ -21,17 +21,17 @@ function App() {
       <div className="app__container">
         <Switch>
           <Route exact path="/">
-            <Header theme="color"/>
+            <Header theme="color" style="main"/>
             <Main />
             <Footer />
           </Route>
           <Route  path="/movies">
-            <Header theme="light"/>
+            <Header theme="light" style="main"/>
             <Movies />
             <Footer />
           </Route>
           <Route path="/saved-movies">
-          <Header />
+          <Header theme="light" style="main"/>
             <SavedMovies />
             <Footer />
           </Route>
@@ -45,6 +45,7 @@ function App() {
 
           </Route>
           <Route path="/signup">
+          <Header theme="light" style="auth"/>
           <Register />
 
           </Route>
