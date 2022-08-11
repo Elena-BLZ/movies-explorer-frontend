@@ -39,10 +39,21 @@
     .header__logo_style_main {
         margin-left: 30px;
     }
+    .header_style_auth {
+        margin-top: 215px;
+    }
 }
 
 @media (max-width: 540px) {
     .header__logo_style_main {
         margin-left: 14px;
     }
+    .header_style_auth {
+        margin-top: 39px;
+        margin-bottom: 33px;
+    }
+    .header__logo_style_auth {
+        margin: 0 auto;
+    }
+
 }
