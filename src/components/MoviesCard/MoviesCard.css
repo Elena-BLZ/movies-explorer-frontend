@@ -66,4 +66,28 @@ text-align: center;
 .movies-card__save-button_mode_unsaved {
     background: #F9F9F9;
 }
+@media (max-width: 890px) {
 
+.movies-card__poster {
+    height: 190px;
+}}
+
+@media (max-width: 640px) {
+    .movies-card__name {
+        font-size: 12px;
+
+    }
+    .movies-card__timing {
+        font-size: 10px;
+
+    }
+    .movies-card__info {
+        padding: 14px 14px 14px 11px;
+    }
+    .movies-card__poster {
+        height: 168px;
+    }
+    .movies-card__save-button {
+        margin: 14px 0;
+    }
+}

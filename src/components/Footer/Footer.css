@@ -57,9 +57,9 @@
     }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
     .footer {
-        padding: 79px 10px 10px;
+        padding: 67px 10px 10px;
     }
 
     .footer__links {

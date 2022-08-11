@@ -23,3 +23,32 @@ text-align: center;
 border: none;
 margin: 60px 0 80px;
 }
+
+@media (max-width: 890px) {
+    .movies-card-list {
+        margin: 82px 30px 30px;
+
+    }
+    .movies-card-list__container {
+        grid-template-columns: repeat(auto-fit, minmax(342px, 1fr));
+        row-gap: 35px;
+        column-gap: 24px;
+    }
+
+    .movies-card-list__more-button {
+        margin: 80px 0 92px;
+
+    }
+
+   
+}
+@media (max-width: 640px) {
+    .movies-card-list {
+        margin: 50px 10px 80px;
+
+    }
+    .movies-card-list__container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        row-gap: 16px;
+    }
+}
