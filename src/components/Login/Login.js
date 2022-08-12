@@ -1,7 +1,14 @@
 import React from 'react'
-
+import AuthForm from '../AuthForm/AuthForm'
 export default function Login() {
   return (
-    <div>Login</div>
+    <AuthForm
+    formName="loginForm"
+    title="Рады видеть!" 
+    buttonText="Войти" 
+    navText="Ещё не зарегистрированы?" 
+    navLinkTo="/singup"
+    navLinkText="Регистрация"
+   />
   )
 }

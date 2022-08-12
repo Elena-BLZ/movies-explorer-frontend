@@ -20,6 +20,11 @@ line-height: 12px;
 
 color: #A0A0A0;
 }
+
+.auth-form__input-label_hide {
+    display: none;
+}
+
 .auth-form__input {
     display: block;
     width: 100%;

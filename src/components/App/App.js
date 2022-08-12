@@ -41,6 +41,8 @@ function App() {
             <Footer />
           </Route>
           <Route path="/signin">
+          <Header theme="light" style="auth"/>
+
           <Login />
 
           </Route>

@@ -23,10 +23,12 @@ export default function AuthForm(
     setPassword(e.target.value);
   }
 
+  const nameLabelClass = "auth-form__input-label" + ((formName==="loginForm") && " auth-form__input-label_hide");
+
   return (
     <form className="auth-form" name={formName}>
       <h2 className="auth-form__title">{title}</h2>
-      <label className="auth-form__input-label">
+      <label className={nameLabelClass}>
         Имя  <input
         type="text"
         className="auth-form__input"
