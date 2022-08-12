@@ -21,33 +21,32 @@ function App() {
       <div className="app__container">
         <Switch>
           <Route exact path="/">
-            <Header theme="color" style="main"/>
+            <Header theme="color" pasitionStyle="main"/>
             <Main />
             <Footer />
           </Route>
           <Route  path="/movies">
-            <Header theme="light" style="main"/>
+            <Header theme="light" pasitionStyle="main"/>
             <Movies />
             <Footer />
           </Route>
           <Route path="/saved-movies">
-          <Header theme="light" style="main"/>
+          <Header theme="light" pasitionStyle="main"/>
             <SavedMovies />
             <Footer />
           </Route>
           <Route path="/profile">
-          <Header />
+          <Header theme="light" pasitionStyle="main"/>
             <Profile />
-            <Footer />
           </Route>
           <Route path="/signin">
-          <Header theme="light" style="auth"/>
+          <Header theme="light" pasitionStyle="auth"/>
 
           <Login />
 
           </Route>
           <Route path="/signup">
-          <Header theme="light" style="auth"/>
+          <Header theme="light" pasitionStyle="auth"/>
           <Register />
 
           </Route>
