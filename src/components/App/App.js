@@ -10,7 +10,7 @@ import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
-
+import Navigation from "../Navigation/Navigation";
 
 
 import "./App.css";
@@ -21,33 +21,39 @@ function App() {
       <div className="app__container">
         <Switch>
           <Route exact path="/">
-            <Header theme="color" pasitionStyle="main"/>
+            <Header theme="color" positionStyle="main"/>
             <Main />
             <Footer />
           </Route>
           <Route  path="/movies">
-            <Header theme="light" pasitionStyle="main"/>
+            <Header theme="light" positionStyle="main"/>
             <Movies />
             <Footer />
           </Route>
           <Route path="/saved-movies">
-          <Header theme="light" pasitionStyle="main"/>
+          <Header theme="light" positionStyle="main"/>
             <SavedMovies />
             <Footer />
           </Route>
           <Route path="/profile">
-          <Header theme="light" pasitionStyle="main"/>
+          <Header theme="light" positionStyle="main"/>
             <Profile />
           </Route>
           <Route path="/signin">
-          <Header theme="light" pasitionStyle="auth"/>
+          <Header theme="light" positionStyle="auth"/>
 
           <Login />
 
           </Route>
           <Route path="/signup">
-          <Header theme="light" pasitionStyle="auth"/>
+          <Header theme="light" positionStyle="auth"/>
           <Register />
+
+          </Route>
+          <Route path="/nav">
+          
+          <Navigation >
+          </Navigation>
 
           </Route>
           <Route path="*">
