@@ -6,7 +6,7 @@ export default function FilterCheckbox({text}) {
     <label>
 
     <input type = "checkbox" className='filter-check-box'></input>
-    <span class="filter-check-box__pseudo-item">
+    <span className="filter-check-box__pseudo-item">
         <span className='filter-check-box__circle'>
             
         </span>
