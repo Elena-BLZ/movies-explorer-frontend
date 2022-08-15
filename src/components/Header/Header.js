@@ -27,12 +27,12 @@ export default function Header({ theme, positionStyle, isLogged }) {
       <Link to={"/"}>
         <img src={logo} alt="Логотип" aria-label="Главная страница" className={logoClassName} ></img>
       </Link>
-      <Navigation
+      {(positionStyle!=="auth") && <Navigation 
         isLogged={isLogged}
         isClosed={isNavClosed}
         onNavOpen={openNav}
         onNavClose={closeNav}
-      />
+      />}
     </header>
   );
 }

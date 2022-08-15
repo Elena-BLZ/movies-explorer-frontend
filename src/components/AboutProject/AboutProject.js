@@ -25,7 +25,6 @@ export default function AboutProject() {
           </p>
         </div>
       </div>
-
       <div className="about-project__time-line">
         <p className="about-project__time-span about-project__time-span_theme_dark">
           1 неделя

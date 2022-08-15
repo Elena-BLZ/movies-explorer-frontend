@@ -7,7 +7,7 @@ export default function AboutMe() {
     <section className="about-me" id="about-me">
       <h2 className="about-me__section-title">Студент</h2>
       <div className="about-me__student-card">
-      <img
+        <img
           className="about-me__photo"
           src={studentPhoto}
           alt="Фото студента"
@@ -23,12 +23,16 @@ export default function AboutMe() {
           </p>
         </div>
         <ul className="about-me__links">
-            <li>
-              <a href="https://github.com/Elena-BLZ" target="_blank" className="about-me__link app__button">
-                GitHub
-              </a>
-            </li>
-          </ul>
+          <li>
+            <a
+              href="https://github.com/Elena-BLZ"
+              target="_blank"
+              className="about-me__link app__button"
+            >
+              GitHub
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
   );

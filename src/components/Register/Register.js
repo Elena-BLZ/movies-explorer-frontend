@@ -10,7 +10,7 @@ export default function Register() {
      title="Добро пожаловать!" 
      buttonText="Зарегистрироваться" 
      navText="Уже зарегистрированы?" 
-     navLinkTo="/singin"
+     navLinkTo="/signin"
      navLinkText="Войти"
     />
   )

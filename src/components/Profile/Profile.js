@@ -14,7 +14,7 @@ export default function Profile() {
   return (
     <form className='profile-form' name="profile-form">
       <h2 className='profile-form__greeting'>Привет, Виталий!</h2>
-      <label className='profile-form__input-label'>
+      <label className='app__button profile-form__input-label'>
         Имя
         <input className='profile-form__input'
         type="text"
@@ -26,7 +26,7 @@ export default function Profile() {
           
         </input>
       </label>
-      <label className="profile-form__input-label">
+      <label className="app__button profile-form__input-label">
       E-mail
       <input
         type="email"
