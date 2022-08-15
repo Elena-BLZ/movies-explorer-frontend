@@ -3,43 +3,54 @@ import icon from "../../images/profile-icon.svg";
 import { useHistory, Link } from "react-router-dom";
 import "./Navigation.css";
 
-export default function Navigation({ isLogged, isClosed, onNavOpen, onNavClose }) {
+export default function Navigation({
+  isLogged,
+  isClosed,
+  onNavOpen,
+  onNavClose,
+}) {
   const history = useHistory();
   const current = history.location.pathname;
 
   const generateClassName = (path) => {
     return `navigation__link ${
       path === current ? `navigation__link_current` : ""
-    }`;
+    } app__button`;
   };
   const containerClassName = `navigation__container ${
     isLogged && "navigation__container_logged"
   }`;
   return (
-    <div className={`navigation ${isClosed && 'navigation_closed'}`}>
-        <button className="navigation__toggle"type="button"
-          aria-label="Навигация"
-          onClick={onNavOpen}>
-            <hr className="navigation__toggle-line"></hr>
-            <hr className="navigation__toggle-line"></hr>
-            <hr className="navigation__toggle-line"></hr>
-        </button>
+    <div className={`navigation ${isClosed && "navigation_closed"}`}>
+      <button
+        className="app_button navigation__toggle"
+        type="button"
+        aria-label="Навигация"
+        onClick={onNavOpen}
+      >
+        <hr className="navigation__toggle-line"></hr>
+        <hr className="navigation__toggle-line"></hr>
+        <hr className="navigation__toggle-line"></hr>
+      </button>
       <div className={containerClassName}>
-        <button className="button navigation__close-button" type="button"
+        <button
+          className="app__button navigation__close-button"
+          type="button"
           aria-label="Закрыть"
-          onClick={onNavClose}>
-            <hr className="navigation__close-button-line"></hr>
-            <hr className="navigation__close-button-line"></hr>
-          </button>
+          onClick={onNavClose}
+        >
+          <hr className="navigation__close-button-line"></hr>
+          <hr className="navigation__close-button-line"></hr>
+        </button>
         {isLogged && (
           <ul className="navigation__links">
             <li className="navigation__link-container navigation__link-container_main">
-                <Link to="/" className={generateClassName("/")}>
-                    Главная
-                </Link>
+              <Link to="/" aria-label="Главная" className={generateClassName("/")} >
+                Главная
+              </Link>
             </li>
             <li className="navigation__link-container">
-              <Link to="/movies" className={generateClassName("/movies")}>
+              <Link to="/movies" aria-label="Фильмы" className={generateClassName("/movies")}>
                 Фильмы
               </Link>
             </li>
@@ -47,6 +58,7 @@ export default function Navigation({ isLogged, isClosed, onNavOpen, onNavClose }
               <Link
                 to="/saved-movies"
                 className={generateClassName("/saved-movies")}
+                aria-label="Сохраненные фильмы"
               >
                 Сохраненные фильмы
               </Link>
@@ -56,7 +68,9 @@ export default function Navigation({ isLogged, isClosed, onNavOpen, onNavClose }
 
         {isLogged ? (
           <button
-            className="navigation__profile-button"
+            className="app__button navigation__profile-button"
+            type="button"
+            aria-label="Профиль"
             onClick={() => {
               history.push("/profile");
             }}
@@ -69,12 +83,12 @@ export default function Navigation({ isLogged, isClosed, onNavOpen, onNavClose }
             />
           </button>
         ) : (
-          <div className="navigation__auth-container">
-            <Link to="/signup" className="navigation__link">
+          <div className="navigation__auth-container app__button">
+            <Link to="/signup" className="navigation__link" aria-label="Регистрация">
               Регистрация
             </Link>
             <button
-              className="navigation__login-button"
+              className="navigation__login-button app__button" aria-label="Вход"
               onClick={() => {
                 history.push("/signin");
               }}

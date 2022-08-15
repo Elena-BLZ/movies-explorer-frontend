@@ -39,9 +39,9 @@ export default function Profile() {
       ></input>
             </label>
 <ErrorMessage text=" "/>
-            <button className="profile-form__redact-button ">Редактировать</button>
-            <button className="profile-form__exit-button ">Выйти из аккаунта</button>
-            <button className="profile-form__save-button profile-form__button_hide" type="submit">Сохранить</button>
+            <button className="profile-form__redact-button app__button">Редактировать</button>
+            <button className="profile-form__exit-button app__button">Выйти из аккаунта</button>
+            <button className="profile-form__save-button profile-form__button_hide app__button" type="submit">Сохранить</button>
       </form>
       
   )

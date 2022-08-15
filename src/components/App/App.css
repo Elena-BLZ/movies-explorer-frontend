@@ -18,3 +18,12 @@
   flex-shrink: 0;
 }
 
+.app__button {
+  transition: opacity .3s;
+}
+
+.app__button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+

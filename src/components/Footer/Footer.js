@@ -11,18 +11,13 @@ export default function Footer() {
         <p className="footer__date">© 2022</p>
         <ul className="footer__links">
           <li className="footer__link-container">
-            <a href="#" aria-label="" className="footer__link">
+            <a href="https://practicum.yandex.ru/" target="_blank" aria-label="Яндекс.Практикум" className="app__button footer__link">
               Яндекс.Практикум
             </a>
           </li>
           <li className="footer__link-container">
-            <a href="#" aria-label="" className="footer__link">
+            <a href="https://github.com/Elena-BLZ" target="_blank" aria-label="GitHub" className="footer__link app__button">
               GitHub
-            </a>
-          </li>
-          <li className="footer__link-container">
-            <a href="#" aria-label="" className="footer__link">
-              Facebook
             </a>
           </li>
         </ul>

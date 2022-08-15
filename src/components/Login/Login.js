@@ -7,7 +7,7 @@ export default function Login() {
     title="Рады видеть!" 
     buttonText="Войти" 
     navText="Ещё не зарегистрированы?" 
-    navLinkTo="/singup"
+    navLinkTo="/signup"
     navLinkText="Регистрация"
    />
   )

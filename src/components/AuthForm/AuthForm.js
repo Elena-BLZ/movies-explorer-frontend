@@ -65,12 +65,12 @@ export default function AuthForm(
       ></input>
                   </label>
 
-      <button className="auth-form__button button" type="submit">
+      <button className="auth-form__button app__button" type="submit">
         {buttonText}
       </button>
       <span className="auth-form__nav-span">
         {navText}
-        <Link to={navLinkTo} className="button auth-form__nav-span-link">
+        <Link to={navLinkTo} className="app__button auth-form__nav-span-link">
                   {navLinkText}
                 </Link>
       </span>

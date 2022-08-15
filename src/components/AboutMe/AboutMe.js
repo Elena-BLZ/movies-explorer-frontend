@@ -4,7 +4,7 @@ import studentPhoto from "../../images/student-photo.jpg";
 
 export default function AboutMe() {
   return (
-    <section className="about-me">
+    <section className="about-me" id="about-me">
       <h2 className="about-me__section-title">Студент</h2>
       <div className="about-me__student-card">
       <img
@@ -24,12 +24,7 @@ export default function AboutMe() {
         </div>
         <ul className="about-me__links">
             <li>
-              <a href="#" className="about-me__link">
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a href="#" className="about-me__link">
+              <a href="https://github.com/Elena-BLZ" target="_blank" className="about-me__link app__button">
                 GitHub
               </a>
             </li>
