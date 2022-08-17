@@ -45,12 +45,20 @@ export default function Navigation({
         {isLogged && (
           <ul className="navigation__links">
             <li className="navigation__link-container navigation__link-container_main">
-              <Link to="/" aria-label="Главная" className={generateClassName("/")} >
+              <Link
+                to="/"
+                aria-label="Главная"
+                className={generateClassName("/")}
+              >
                 Главная
               </Link>
             </li>
             <li className="navigation__link-container">
-              <Link to="/movies" aria-label="Фильмы" className={generateClassName("/movies")}>
+              <Link
+                to="/movies"
+                aria-label="Фильмы"
+                className={generateClassName("/movies")}
+              >
                 Фильмы
               </Link>
             </li>
@@ -83,12 +91,18 @@ export default function Navigation({
             />
           </button>
         ) : (
-          <div className="navigation__auth-container app__button">
-            <Link to="/signup" className="navigation__link" aria-label="Регистрация">
+          <div className="navigation__auth-container">
+            <Link
+              to="/signup"
+              className="navigation__link app__button"
+              aria-label="Регистрация"
+            >
               Регистрация
             </Link>
             <button
-              className="navigation__login-button app__button" aria-label="Вход"
+              className="navigation__login-button app__button"
+              aria-label="Вход"
+              type="button"
               onClick={() => {
                 history.push("/signin");
               }}

@@ -8,14 +8,14 @@ export default function SearchForm() {
     <form className="search-form">
       <div className="search-form__container">
         <fieldset className="search-form__film-search">
-          <img className="search-form__icon" src={icon}></img>
-
+          <img className="search-form__icon" src={icon} alt="Иконка поиска"></img>
           <input
             type="search"
             placeholder="Фильм"
             className="search-form__query"
+            required
           ></input>
-          <button className="button search-form__find-button">Найти</button>
+          <button className="app__button search-form__find-button">Найти</button>
         </fieldset>
         <FilterCheckbox text="Короткометражки" />
       </div>

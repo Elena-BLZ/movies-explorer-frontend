@@ -25,14 +25,21 @@ export default function Header({ theme, positionStyle, isLogged }) {
   return (
     <header className={headerClassName}>
       <Link to={"/"}>
-        <img src={logo} alt="Логотип" aria-label="Главная страница" className={logoClassName} ></img>
+        <img
+          src={logo}
+          alt="Логотип"
+          aria-label="Главная страница"
+          className={logoClassName}
+        ></img>
       </Link>
-      {(positionStyle!=="auth") && <Navigation 
-        isLogged={isLogged}
-        isClosed={isNavClosed}
-        onNavOpen={openNav}
-        onNavClose={closeNav}
-      />}
+      {positionStyle !== "auth" && (
+        <Navigation
+          isLogged={isLogged}
+          isClosed={isNavClosed}
+          onNavOpen={openNav}
+          onNavClose={closeNav}
+        />
+      )}
     </header>
   );
 }

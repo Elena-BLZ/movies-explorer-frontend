@@ -9,7 +9,7 @@ export default function Promo() {
       <h1 className="promo__title">
         Учебный проект студента факультета Веб-разработки.
       </h1>
-      <img className="promo__landing-logo" src={landingLogo}></img>
+      <img className="promo__landing-logo" src={landingLogo} alt="Логотип Яндекс Практикум"></img>
     </section>
   );
 }
