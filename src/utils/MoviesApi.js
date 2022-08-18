@@ -7,10 +7,9 @@ class MoviesApi {
     }
 
 
-
-getDava() {
+getData() {
     return fetch(`${this._baseUrl}`, {
-      credentials: 'include',
+      method: "GET",
       headers: this._headers,
     }).then(checkResponse);
   }

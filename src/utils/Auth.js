@@ -3,11 +3,7 @@ import { checkResponse } from "./utils";
 export const BASE_URL = `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`;
 
 
-<<<<<<< HEAD
-export const signup = (email, password) => {
-=======
 export const signup = (email, password, name) => {
->>>>>>> level-2
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     credentials: 'include',
@@ -17,10 +13,7 @@ export const signup = (email, password, name) => {
     body: JSON.stringify({
       password: password,
       email: email,
-<<<<<<< HEAD
-=======
       name: name,
->>>>>>> level-2
     }),
   }).then(checkResponse);
 };
@@ -49,11 +42,7 @@ export const getContent = () => {
 };
 
 export const logOut = () => {
-<<<<<<< HEAD
-  return fetch(`${BASE_URL}/logout`, {
-=======
   return fetch(`${BASE_URL}/signout`, {
->>>>>>> level-2
     method: "GET",
     credentials: 'include',
     headers: {

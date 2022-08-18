@@ -29,7 +29,7 @@ export default function Profile() {
     setError ("");
   }
   return (
-    <form className="profile-form" name="profile-form" novalidate
+    <form className="profile-form" name="profile-form" noValidate
     onSubmit={handleProfileSubmit}>
       <h2 className="profile-form__greeting">Привет, Виталий!</h2>
       <label className="app__button profile-form__input-label">
