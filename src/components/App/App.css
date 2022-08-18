@@ -1,0 +1,28 @@
+.app {
+  font-family: 'Inter', Arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: white;
+}
+
+.app__container {
+  min-width: 320px;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__header {
+  flex-shrink: 0;
+}
+
+.app__button {
+  transition: opacity .3s;
+}
+
+.app__button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
