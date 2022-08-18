@@ -1,0 +1,40 @@
+.nav-tab {
+    background-color: black;
+    max-height: 66px;
+    width: 100%;
+    padding: 24px 0;
+    box-sizing: border-box;
+}
+
+.nav-tab__links {
+    margin: auto;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    max-width: 276px;
+}
+
+.nav-tab__link {
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+@media (max-width: 770px) {
+    .nav-tab__links {
+        max-width: 273px;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav-tab__links {
+        max-width: 213px;
+    }
+
+    .nav-tab__link {
+        font-size: 11px;
+    }
+}

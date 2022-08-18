@@ -1,0 +1,67 @@
+.filter-check-box {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.filter-check-box__pseudo-item {
+    display: inline-block;
+    vertical-align: middle;
+    width: 36px;
+    height: 20px;
+    background: #EBEBEB;
+    border-radius: 20px;
+
+}
+
+.filter-check-box__circle {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    margin: 2px 18px 4px 2px;
+}
+
+.filter-check-box:checked+.filter-check-box__pseudo-item {
+    background: #2BE080;
+
+}
+
+.filter-check-box:checked+.filter-check-box__pseudo-item .filter-check-box__circle {
+    margin: 2px 2px 4px 18px;
+    background: white;
+}
+
+.filter-check-box:disabled+.filter-check-box__pseudo-item {
+    background: #EBEBEB;
+}
+
+/* выключенный */
+.filter-check-box:disabled+.filter-check-box__pseudo-item .filter-check-box__circle {
+    background: #F5F5F5;
+    margin: 2px 18px 4px 2px;
+
+}
+
+.filter-check-box:focus+.filter-check-box__pseudo-item {
+    border: orange;
+}
+
+.filter-check-box__label-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    margin: 0 0 0 16px;
+}
+
+@media (max-width: 640px) {
+    .filter-check-box__label-text {
+        font-size: 11px;
+        margin-left: 14px;
+    }
+}
