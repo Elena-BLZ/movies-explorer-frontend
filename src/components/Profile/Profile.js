@@ -5,6 +5,10 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 export default function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const [inEditMode, setInEditMode] = useState(false);
+  
   function handleNameChange(e) {
     setName(e.target.value);
   }
@@ -12,10 +16,21 @@ export default function Profile() {
     setEmail(e.target.value);
   }
   function handleEditClick() {
-
+    setInEditMode(true);
+  }
+  function handleProfileSubmit (e) {
+    e.preventDefault();
+    console.log ("Submit");
+    if (!email || !name) {
+      setError ("Имя и email не могут быть пустыми");
+      return;
+    }
+    //onSubmit(email, password);
+    setError ("");
   }
   return (
-    <form className="profile-form" name="profile-form">
+    <form className="profile-form" name="profile-form" novalidate
+    onSubmit={handleProfileSubmit}>
       <h2 className="profile-form__greeting">Привет, Виталий!</h2>
       <label className="app__button profile-form__input-label">
         Имя
@@ -27,7 +42,7 @@ export default function Profile() {
           value={name}
           onChange={handleNameChange}
           required
-          disabled
+          disabled = {!inEditMode}
         ></input>
       </label>
       <label className="app__button profile-form__input-label">
@@ -40,23 +55,35 @@ export default function Profile() {
           value={email}
           onChange={handleEmailChange}
           required
-          disabled
+          disabled = {!inEditMode}
         ></input>
       </label>
-      <ErrorMessage text=" " />
-      <button className="profile-form__edit-button app__button" type="button"
-      onClick={handleEditClick}>
-        Редактировать
-      </button>
-      <button className="profile-form__exit-button app__button" type="button">
-        Выйти из аккаунта
-      </button>
-      <button
-        className="profile-form__save-button profile-form__button_hide app__button"
-        type="submit"
-      >
-        Сохранить
-      </button>
+      <ErrorMessage text={error} />
+      {inEditMode ? (
+        <button
+          className="profile-form__save-button app__button"
+          type="submit"
+          disabled={error!==""}
+        >
+          Сохранить
+        </button>
+      ) : (
+        <>
+          <button
+            className="profile-form__edit-button app__button"
+            type="button"
+            onClick={handleEditClick}
+          >
+            Редактировать
+          </button>
+          <button
+            className="profile-form__exit-button app__button"
+            type="button"
+          >
+            Выйти из аккаунта
+          </button>
+        </>
+      )}
     </form>
   );
 }

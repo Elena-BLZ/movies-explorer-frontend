@@ -34,7 +34,9 @@
     line-height: 13px;
     text-align: right;
     border: none;
-    background-color: transparent;
+    background-color: white;
+    margin-left: 15px;
+    width: 80%;
 }
 
 .profile-form__input-label:last-of-type {
