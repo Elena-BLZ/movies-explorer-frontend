@@ -8,7 +8,9 @@ export default function MoviesCardList({ cardsData }) {
     w768: { start: 8, add: 2 },
     w320: { start: 5, add: 2 },
   };
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(
+    document.documentElement.clientWidth
+  );
   const [showCount, setShowCount] = useState(0);
   function handleResize() {
     setTimeout(() => {
@@ -18,29 +20,38 @@ export default function MoviesCardList({ cardsData }) {
   useEffect(() => {
     setWindowWidth(document.documentElement.clientWidth);
     console.log("width", windowWidth);
-    
+
     setShowCount(
       windowWidth >= 1280
         ? CARDS_SHOW.w1280.start
-        : (windowWidth >= 768
+        : windowWidth >= 768
         ? CARDS_SHOW.w768.start
-        : CARDS_SHOW.w320.start)
+        : CARDS_SHOW.w320.start
     );
     window.addEventListener("resize", handleResize);
-  },[]);
+    console.log ("cardlist", cardsData);
+
+    // return window.removeEventListener("resize", handleResize);
+  }, []);
   function addCardsToShow() {
-    const addCount =  windowWidth >= 1280
-    ? CARDS_SHOW.w1280.add
-    : (windowWidth >= 768
-    ? CARDS_SHOW.w768.add
-    : CARDS_SHOW.w320.add);
+    const addCount =
+      windowWidth >= 1280
+        ? CARDS_SHOW.w1280.add
+        : windowWidth >= 768
+        ? CARDS_SHOW.w768.add
+        : CARDS_SHOW.w320.add;
     setShowCount(showCount + addCount);
   }
 
   return (
     <section className="movies-card-list">
+      { 
+      (cardsData.length === 0 && localStorage.getItem("searchLine")) && (
+        <p className="movies-card-list__nothing">Ничего не найдено</p>
+      )}
       <div className="movies-card-list__container">
-        {cardsData.slice(0, showCount).map((card) => {
+        {
+        (cardsData.slice(0, showCount).map((card) => {
           const cardId = card.id;
           return (
             <MoviesCard
@@ -52,9 +63,9 @@ export default function MoviesCardList({ cardsData }) {
               isSaved="false"
             />
           );
-        })}
+        }))}
       </div>
-      {showCount <= cardsData.length && (
+      {(showCount < cardsData.length && (
         <button
           className="app__button movies-card-list__more-button"
           type="button"
@@ -62,7 +73,7 @@ export default function MoviesCardList({ cardsData }) {
         >
           Ещё
         </button>
-      )}
+      ))}
     </section>
   );
 }

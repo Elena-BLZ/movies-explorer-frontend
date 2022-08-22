@@ -12,33 +12,22 @@ import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
 import Navigation from "../Navigation/Navigation";
 import { moviesApi } from "../../utils/MoviesApi";
-
 import "./App.css";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
 
-  function handleMoviesSearch(searchLine, isShort) {
-    if (!localStorage.getItem("allMovies")) {
-      getAllMovies();
-    }
 
-    const data = JSON.parse(localStorage.getItem("allMovies"));
-
-    // search and return result
-    return data;
-  }
   function getAllMovies() {
-    moviesApi
-      .getData()
-      .then((data) => {
-        const strData = JSON.stringify(data);
-        console.log("str", strData);
-        localStorage.setItem("allMovies", strData);
-      })
-
-      .catch((err) => console.log("err", err));
+    return moviesApi
+    .getData()
+    .then((data) => {
+      localStorage.setItem("allMovies", JSON.stringify(data));
+      return data;
+    })
+    .catch((err) => console.log("err", err));
   }
+
 
   return (
     <div className="app">
@@ -51,7 +40,7 @@ function App() {
           </Route>
           <Route path="/movies">
             <Header theme="light" positionStyle="main" isLogged={loggedIn} />
-            <Movies handleSearch={handleMoviesSearch} />
+            <Movies getAllMovies={getAllMovies} />
             <Footer />
           </Route>
           <Route path="/saved-movies">

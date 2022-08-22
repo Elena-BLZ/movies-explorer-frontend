@@ -4,8 +4,8 @@ import "./SearchForm.css";
 import icon from "../../images/search-icon.svg";
 
 export default function SearchForm({onSearchSubmit}) {
-  const [searchLine, setSearchLine] = useState("");
-  const [isShort, setIsShort] = useState(true);
+  const [searchLine, setSearchLine] = useState(localStorage.getItem("searchLine") || "");
+  const [isShort, setIsShort] = useState((localStorage.getItem("isShort")==="true") || false);
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleSearchChange(e) {
