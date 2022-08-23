@@ -6,14 +6,13 @@ import { filterMovies } from "../../utils/utils";
 
 import "./Movies.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-
+import { MOVIES_SEARCH_ERROR } from "../../utils/constants";
 export default function Movies({ getAllMovies }) {
   const [searchResult, setSearchResult] = useState(
     JSON.parse(localStorage.getItem("searchResult")) || []
   );
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
 
   function handleSearchSubmit(searchLine, isShort) {
     setIsLoading(true);
@@ -24,18 +23,17 @@ export default function Movies({ getAllMovies }) {
   }
 
   function handleMoviesSearch(searchLine, isShort) {
-    if (!localStorage.getItem("allMovies")) {
-      getAllMovies()
-        .then((data) => {
-          const res = processMoviesSearch(data, searchLine, isShort);
-          setSearchResult(res);
-        })
-        .catch((err) => setErrorMessage("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"));
-    } else {
-      const data = JSON.parse(localStorage.getItem("allMovies"));
-      const res = processMoviesSearch(data, searchLine, isShort);
-      setSearchResult(res);
+    const defaultData = localStorage.getItem("allMovies");
+    if (defaultData) {
+      const data = JSON.parse(defaultData);
+      setSearchResult(processMoviesSearch(data, searchLine, isShort));
+      return;
     }
+    getAllMovies()
+      .then((data) => {
+        setSearchResult(processMoviesSearch(data, searchLine, isShort));
+      })
+      .catch(() => setErrorMessage(MOVIES_SEARCH_ERROR));
   }
 
   function processMoviesSearch(data, searchLine, isShort) {
@@ -53,7 +51,7 @@ export default function Movies({ getAllMovies }) {
     <main className="movies">
       <SearchForm onSearchSubmit={handleSearchSubmit} />
       <Preloader isVisible={isLoading} />
-      <ErrorMessage text={errorMessage}/>
+      <ErrorMessage text={errorMessage} />
       <MoviesCardList cardsData={searchResult} />
     </main>
   );
