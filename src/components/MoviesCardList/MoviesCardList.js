@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 
-export default function MoviesCardList({ cardsData }) {
+export default function MoviesCardList({ cardsData, savedMoviesData, onMovieSave, isFold }) {
   const CARDS_SHOW = {
     w1280: { start: 12, add: 3 },
     w768: { start: 8, add: 2 },
@@ -18,6 +18,10 @@ export default function MoviesCardList({ cardsData }) {
     }, 1000);
   }
   useEffect(() => {
+    if (!isFold) {
+      setShowCount (undefined);
+      return;
+    }
     setWindowWidth(document.documentElement.clientWidth);
     console.log("width", windowWidth);
 
@@ -30,6 +34,7 @@ export default function MoviesCardList({ cardsData }) {
     );
     window.addEventListener("resize", handleResize);
     console.log ("cardlist", cardsData);
+    
 
     // return window.removeEventListener("resize", handleResize);
   }, []);
@@ -52,15 +57,28 @@ export default function MoviesCardList({ cardsData }) {
       <div className="movies-card-list__container">
         {
         (cardsData.slice(0, showCount).map((card) => {
-          const cardId = card.id;
+          const cardId = card.id || card.movieId;
+          if (!card._id)
+          {
+            const savedItem = savedMoviesData.find ((item)=> item.movieId === cardId);
+const savedId = savedItem ? savedItem._id : undefined;
+card._id=savedId
+          }
+          
+          const isSaved = card._id && true ;
+          //console.log ("card", cardId, savedItem, savedId, isSaved);
           return (
             <MoviesCard
               key={cardId}
+              id={cardId}
+              
               name={card.nameRU}
               timing={card.duration}
-              poster={card.image.url}
+              poster={card.image.url ? `https://api.nomoreparties.co/${card.image.url}` : card.image}
               trailerLink={card.trailerLink}
-              isSaved="false"
+              isSaved={isSaved}
+              _id = {card._id}
+              onMovieSave={onMovieSave}
             />
           );
         }))}

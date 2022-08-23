@@ -24,6 +24,8 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [savedMovies, setSavedMovies] = useState([]);
+
   const history = useHistory();
 
   function handleError(err) {
@@ -42,6 +44,18 @@ function App() {
   }, [loggedIn]);
 
   useEffect(() => {
+    if (loggedIn) {
+      mainApi
+        .getSavedMovies()
+        .then((data) => {
+          setSavedMovies(data);
+          console.log("savedMovies", data);
+        })
+        .catch((err) => console.log("err", err));
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
     handleTokenCheck();
   }, []);
 
@@ -54,6 +68,7 @@ function App() {
       })
       .catch((err) => console.log("err", err));
   }
+
   const handleRegister = ({ name, email, password }) => {
     return auth
       .signup(email, password, name)
@@ -78,17 +93,44 @@ function App() {
       .catch((err) => handleError(err));
   }
 
-  function handleProfileEdit ( email, name) {
-    console.log ("editProfile name", name)
-    console.log ("editProfile email", email)
+  function handleProfileEdit(email, name) {
+    console.log("editProfile name", name);
+    console.log("editProfile email", email);
 
     mainApi
-    .editProfile( email, name)
-    .then((res) => {
-      setCurrentUser(res);
-      console.log ("res", res)
-    })
-    .catch((err) => handleError(err));
+      .editProfile(email, name)
+      .then((res) => {
+        setCurrentUser(res);
+        console.log("res", res);
+      })
+      .catch((err) => handleError(err));
+  }
+
+  function handleMovieSave(movieData) {
+    console.log (movieData);
+    mainApi
+      .addMovie(movieData)
+      .then((newMovie) => {
+        setSavedMovies([...savedMovies, newMovie]);
+      })
+      .catch((err) => handleError(err));
+  }
+
+  function handleMovieUnSave(id) {
+    mainApi
+      .deleteMovie(id)
+      .then(() => {
+        setSavedMovies((state) => state.filter((movie) => movie._id!==id));
+      })
+      .catch((err) => handleError(err));
+  }
+
+  function handleMovieSaveStatusChange (movieData, saved_id, isSaved) {
+    if (isSaved) {
+      handleMovieUnSave (saved_id);
+      return;
+    } 
+    handleMovieSave (movieData);
   }
 
   const signOut = () => {
@@ -97,18 +139,19 @@ function App() {
       .then(() => {
         setLoggedIn(false);
         history.push("/signup");
+        localStorage.clear();
       })
       .catch((err) => console.log(`Ошибка.....: ${err.message}`));
   };
 
-    const handleTokenCheck = () => {
+  const handleTokenCheck = () => {
     return auth
       .getContent()
       .then((res) => {
         if (res) {
-          console.log ("tokencheck", res)
+          console.log("tokencheck", res);
           setLoggedIn(true);
-          history.push("/movies");
+          //history.push("/movies");
         }
       })
       .catch((err) => console.log(`Ошибка.....: ${err.message}`));
@@ -126,17 +169,24 @@ function App() {
             </Route>
             <Route path="/movies">
               <Header theme="light" positionStyle="main" isLogged={loggedIn} />
-              <Movies getAllMovies={getAllMovies} />
+              <Movies
+                getAllMovies={getAllMovies}
+                savedMovies={savedMovies}
+                onMovieSave={handleMovieSaveStatusChange}
+              />
               <Footer />
             </Route>
             <Route path="/saved-movies">
               <Header theme="light" positionStyle="main" isLogged={loggedIn} />
-              <SavedMovies />
+              <SavedMovies
+                savedMovies={savedMovies}
+                onMovieSave={handleMovieSaveStatusChange}
+              />
               <Footer />
             </Route>
             <Route path="/profile">
               <Header theme="light" positionStyle="main" isLogged={loggedIn} />
-              <Profile onSubmit={handleProfileEdit} onExit={signOut}/>
+              <Profile onSubmit={handleProfileEdit} onExit={signOut} />
             </Route>
             <Route path="/signin">
               <Header theme="light" positionStyle="auth" isLogged={loggedIn} />

@@ -36,6 +36,7 @@ class MainApi {
   }
 
   addMovie(
+   { id, 
     country,
     director,
     duration,
@@ -46,29 +47,29 @@ class MainApi {
     nameRU,
     nameEN,
     thumbnail,
-    movieId
+    }
   ) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
-        country: country,
-        director: director,
-        duration: duration,
-        year: year,
-        description: description,
-        image: image,
+        country: country || " ",
+        director: director || " ",
+        duration: duration || 0,
+        year: year || " ",
+        description: description || " ",
+        image: `https://api.nomoreparties.co/${image.url}` || " ",
         trailerLink: trailerLink,
-        nameRU: nameRU,
-        nameEN: nameEN,
-        thumbnail: thumbnail,
-        movieId: movieId,
+        nameRU: nameRU || " ",
+        nameEN: nameEN || " ",
+        thumbnail: `https://api.nomoreparties.co/${image.formats.thumbnail.url}` || " ",
+        movieId: id,
       }),
     }).then(checkResponse);
   }
   deleteMovie(_id) {
-    return fetch(`${this._baseUrl}/cards/${_id}`, {
+    return fetch(`${this._baseUrl}/movies/${_id}`, {
       method: "DELETE",
       credentials: "include",
       headers: this._headers,

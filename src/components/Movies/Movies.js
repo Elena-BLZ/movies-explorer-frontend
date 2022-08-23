@@ -3,16 +3,24 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import { filterMovies } from "../../utils/utils";
-
 import "./Movies.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { MOVIES_SEARCH_ERROR } from "../../utils/constants";
-export default function Movies({ getAllMovies }) {
+
+export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
+
   const [searchResult, setSearchResult] = useState(
     JSON.parse(localStorage.getItem("searchResult")) || []
   );
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  //const [savedMovies, setSavedMovies] = useState([]);
+
+  // useEffect (()=>{
+  //   getSavedMovies()
+  //   .then ((data)=> setSavedMovies(data))
+  //   .catch((err) => console.log("err", err));
+  // }, [])
 
   function handleSearchSubmit(searchLine, isShort) {
     setIsLoading(true);
@@ -47,12 +55,38 @@ export default function Movies({ getAllMovies }) {
     localStorage.setItem("isShort", isShort);
   }
 
+  function setSearch() {
+    return {
+      searchLine: localStorage.getItem("searchLine") || "",
+      isShort: localStorage.getItem("isShort") === "true" || false,
+    };
+  }
+
+  function handleMovieSave (savedId, id, isSaved) {
+    const movieData = searchResult.find ((item)=>item.id===id)
+
+    onMovieSave (movieData, savedId, isSaved)
+
+  }
+
+  function formatMovieList () {
+    const res = searchResult.map ((item)=> {
+      const newItem = item;
+      const savedItem = savedMovies.find ((i)=> i.movieId === newItem.id);
+      newItem._id = savedItem ? savedItem._id : undefined;
+    }
+
+    )
+    console.log ("formated", res)
+    return res;
+  }
+
   return (
     <main className="movies">
-      <SearchForm onSearchSubmit={handleSearchSubmit} />
+      <SearchForm onSearchSubmit={handleSearchSubmit} setSearch={setSearch} />
       <Preloader isVisible={isLoading} />
       <ErrorMessage text={errorMessage} />
-      <MoviesCardList cardsData={searchResult} />
+      <MoviesCardList cardsData={searchResult} savedMoviesData={savedMovies} onMovieSave ={handleMovieSave} isFold={true}/>
     </main>
   );
 }

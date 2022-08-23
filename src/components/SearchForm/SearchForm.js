@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css";
 import icon from "../../images/search-icon.svg";
 
-export default function SearchForm({onSearchSubmit}) {
-  const [searchLine, setSearchLine] = useState(localStorage.getItem("searchLine") || "");
-  const [isShort, setIsShort] = useState((localStorage.getItem("isShort")==="true") || false);
+export default function SearchForm({onSearchSubmit, setSearch}) {
+  const [searchLine, setSearchLine] = useState("");
+  const [isShort, setIsShort] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect (()=>{
+    const searchSettings = setSearch();
+    setSearchLine (searchSettings.searchLine);
+    setIsShort (searchSettings.isShort);
+  }, [])
   function handleSearchChange(e) {
     setSearchLine(e.target.value);
   }
