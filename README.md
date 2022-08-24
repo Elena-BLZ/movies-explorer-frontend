@@ -4,6 +4,6 @@
 
 Frontend для проекта Movies Explorer.
 
-https://movies.blz.nomoredomains.xyz/
+https://movies.blz.nomoredomains.xyz.nomoredomains.sbs
 
 Елена Блаженских, 2022
