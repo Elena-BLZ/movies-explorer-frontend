@@ -10,26 +10,37 @@ import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
-import Navigation from "../Navigation/Navigation";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import { moviesApi } from "../../utils/MoviesApi";
 import { mainApi } from "../../utils/MainApi";
 import * as auth from "../../utils/Auth.js";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import "./App.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-
   const [loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [savedMovies, setSavedMovies] = useState([]);
+  const [infoToolTip, setInfoToolTip] = useState({});
 
   const history = useHistory();
 
   function handleError(err) {
-    console.log("error", err.message);
+    setErrorMessage(err.message);
+    setErrorPopup( err.message);
+  }
+
+  function setErrorPopup(message) {
+    const infoPopUp = 
+     { isOpen: true,
+          text: message ? message : "Что-то пошло не так! Попробуйте ещё раз.",
+          onClose: () => setInfoToolTip({ ...infoToolTip, isOpen: false }),
+        };
+    setInfoToolTip(infoPopUp);
   }
 
   useEffect(() => {
@@ -49,9 +60,8 @@ function App() {
         .getSavedMovies()
         .then((data) => {
           setSavedMovies(data);
-          console.log("savedMovies", data);
         })
-        .catch((err) => console.log("err", err));
+        .catch((err) => handleError(err));
     }
   }, [loggedIn]);
 
@@ -66,14 +76,13 @@ function App() {
         localStorage.setItem("allMovies", JSON.stringify(data));
         return data;
       })
-      .catch((err) => console.log("err", err));
-  }
+      .catch((err) => handleError(err));
+    }
 
   const handleRegister = ({ name, email, password }) => {
     return auth
       .signup(email, password, name)
       .then((res) => {
-        console.log("register!", res);
         handleLogin({ email, password });
       })
       .catch((err) => {
@@ -85,7 +94,6 @@ function App() {
       .signin(email, password)
       .then((data) => {
         if (data) {
-          console.log("login", data);
           setLoggedIn(true);
           history.push("/movies");
         }
@@ -94,20 +102,16 @@ function App() {
   }
 
   function handleProfileEdit(email, name) {
-    console.log("editProfile name", name);
-    console.log("editProfile email", email);
-
-    mainApi
+    return mainApi
       .editProfile(email, name)
       .then((res) => {
         setCurrentUser(res);
-        console.log("res", res);
+        return res;
       })
       .catch((err) => handleError(err));
   }
 
   function handleMovieSave(movieData) {
-    console.log (movieData);
     mainApi
       .addMovie(movieData)
       .then((newMovie) => {
@@ -120,17 +124,17 @@ function App() {
     mainApi
       .deleteMovie(id)
       .then(() => {
-        setSavedMovies((state) => state.filter((movie) => movie._id!==id));
+        setSavedMovies((state) => state.filter((movie) => movie._id !== id));
       })
       .catch((err) => handleError(err));
   }
 
-  function handleMovieSaveStatusChange (movieData, saved_id, isSaved) {
-    if (isSaved) {
-      handleMovieUnSave (saved_id);
+  function handleMovieSaveStatusChange(movieData, saved_id) {
+    if (saved_id) {
+      handleMovieUnSave(saved_id);
       return;
-    } 
-    handleMovieSave (movieData);
+    }
+    handleMovieSave(movieData);
   }
 
   const signOut = () => {
@@ -138,36 +142,44 @@ function App() {
       .logOut()
       .then(() => {
         setLoggedIn(false);
-        history.push("/signup");
+        history.push("/");
         localStorage.clear();
       })
-      .catch((err) => console.log(`Ошибка.....: ${err.message}`));
-  };
+      .catch((err) => handleError(err));
+    };
 
   const handleTokenCheck = () => {
     return auth
       .getContent()
       .then((res) => {
         if (res) {
-          console.log("tokencheck", res);
           setLoggedIn(true);
-          //history.push("/movies");
+          history.push("/movies");
         }
       })
-      .catch((err) => console.log(`Ошибка.....: ${err.message}`));
-  };
+      .catch((err) => handleError(err));
+    };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <div className="app__container">
           <Switch>
+            <Route path="/signin">
+              <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
+              <Login handleLogin={handleLogin} />
+            </Route>
+            <Route path="/signup">
+              <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
+              <Register handleRegister={handleRegister} error={errorMessage} />
+            </Route>
+
             <Route exact path="/">
               <Header theme="color" positionStyle="main" isLogged={loggedIn} />
               <Main />
               <Footer />
             </Route>
-            <Route path="/movies">
+            <ProtectedRoute path="/movies" loggedIn={loggedIn}>
               <Header theme="light" positionStyle="main" isLogged={loggedIn} />
               <Movies
                 getAllMovies={getAllMovies}
@@ -175,33 +187,29 @@ function App() {
                 onMovieSave={handleMovieSaveStatusChange}
               />
               <Footer />
-            </Route>
-            <Route path="/saved-movies">
+            </ProtectedRoute>
+            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
               <Header theme="light" positionStyle="main" isLogged={loggedIn} />
               <SavedMovies
                 savedMovies={savedMovies}
                 onMovieSave={handleMovieSaveStatusChange}
               />
               <Footer />
-            </Route>
-            <Route path="/profile">
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile" loggedIn={loggedIn}>
               <Header theme="light" positionStyle="main" isLogged={loggedIn} />
               <Profile onSubmit={handleProfileEdit} onExit={signOut} />
-            </Route>
-            <Route path="/signin">
-              <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
-
-              <Login handleLogin={handleLogin} />
-            </Route>
-            <Route path="/signup">
-              <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
-              <Register handleRegister={handleRegister} error={errorMessage} />
-            </Route>
+            </ProtectedRoute>
             <Route path="*">
               <NotFound />
             </Route>
           </Switch>
         </div>
+        <InfoTooltip
+          isOpen={infoToolTip.isOpen}
+          text={infoToolTip.text}
+          onClose={infoToolTip.onClose}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

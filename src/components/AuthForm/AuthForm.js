@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
 import { useFormWithValidation } from "../Validator/Validator";
-import { USERNAME_PATTERN } from "../../utils/constants";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 export default function AuthForm({
   formName,
@@ -12,23 +11,10 @@ export default function AuthForm({
   navLinkTo,
   navLinkText,
   onSubmit,
-  errorMessage
+  errorMessage,
 }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
 
-
-  const { values, handleChange, errors, isValid, resetForm, setValues } =
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation();
 
   function handleFormSubmit(e) {
@@ -89,7 +75,7 @@ export default function AuthForm({
         ></input>
         <span className="auth-form__error-message">{errors.password}</span>
       </label>
-<ErrorMessage text={errorMessage}/>
+      <ErrorMessage text={errorMessage} />
       <button
         className="auth-form__button app__button"
         type="submit"

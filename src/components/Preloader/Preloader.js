@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Preloader.css";
 
 const Preloader = ({ isVisible }) => {
-  useEffect(() => {
-    console.log("isVisible", isVisible);
-  }, []);
-
   return (
     <div className="preloader">
       {isVisible && (

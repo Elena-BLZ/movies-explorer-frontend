@@ -3,20 +3,20 @@ import "./Profile.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-export default function Profile({onSubmit, onExit}) {
+export default function Profile({ onSubmit, onExit }) {
+
   const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const [inEditMode, setInEditMode] = useState(false);
   useEffect(() => {
     if (currentUser) {
       setName(currentUser.name);
       setEmail(currentUser.email);
     }
   }, [currentUser]);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-
-  const [inEditMode, setInEditMode] = useState(false);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -29,13 +29,11 @@ export default function Profile({onSubmit, onExit}) {
   }
   function handleProfileSubmit(e) {
     e.preventDefault();
-    console.log("Submit", name, email);
     if (!email || !name) {
       setError("Имя и email не могут быть пустыми");
       return;
     }
     onSubmit(email, name);
-    setError("");
   }
   return (
     <form
@@ -44,7 +42,9 @@ export default function Profile({onSubmit, onExit}) {
       noValidate
       onSubmit={handleProfileSubmit}
     >
-      <h2 className="profile-form__greeting">{`Привет, ${currentUser && currentUser.name}!`}</h2>
+      <h2 className="profile-form__greeting">{`Привет, ${
+        currentUser && currentUser.name
+      }!`}</h2>
       <label className="app__button profile-form__input-label">
         Имя
         <input

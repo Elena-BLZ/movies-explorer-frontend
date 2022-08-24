@@ -8,8 +8,6 @@ import "./SavedMovies.css";
 
 export default function SavedMovies({ savedMovies, onMovieSave }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-
   const [searchResult, setSearchResult] = useState(savedMovies || []);
 
   useEffect(() => {
@@ -18,7 +16,6 @@ export default function SavedMovies({ savedMovies, onMovieSave }) {
 
   function handleSearchSubmit(searchLine, isShort) {
     setIsLoading(true);
-    setErrorMessage("");
     setSearchResult(filterMovies(savedMovies, searchLine, isShort));
     setIsLoading(false);
   }
@@ -30,14 +27,14 @@ export default function SavedMovies({ savedMovies, onMovieSave }) {
     };
   }
 
-  function handleMovieUnSave(savedId, id, isSaved) {
-    onMovieSave(undefined, savedId, isSaved);
+  function handleMovieUnSave(savedId, id) {
+    onMovieSave(undefined, savedId);
   }
 
   return (
     <main className="saved-movies">
       <SearchForm onSearchSubmit={handleSearchSubmit} setSearch={resetSearch} />
-      <Preloader />
+      <Preloader isVisible={isLoading}/>
       <MoviesCardList
         cardsData={searchResult}
         savedMoviesData={savedMovies}

@@ -8,25 +8,20 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { MOVIES_SEARCH_ERROR } from "../../utils/constants";
 
 export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
-
   const [searchResult, setSearchResult] = useState(
     JSON.parse(localStorage.getItem("searchResult")) || []
   );
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  //const [savedMovies, setSavedMovies] = useState([]);
 
-  // useEffect (()=>{
-  //   getSavedMovies()
-  //   .then ((data)=> setSavedMovies(data))
-  //   .catch((err) => console.log("err", err));
-  // }, [])
+  useEffect(() => {
+    setSearchResult(searchResult);
+  }, [savedMovies]);
 
   function handleSearchSubmit(searchLine, isShort) {
     setIsLoading(true);
     setErrorMessage("");
     handleMoviesSearch(searchLine, isShort);
-
     setIsLoading(false);
   }
 
@@ -62,23 +57,11 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
     };
   }
 
-  function handleMovieSave (savedId, id, isSaved) {
-    const movieData = searchResult.find ((item)=>item.id===id)
-
-    onMovieSave (movieData, savedId, isSaved)
-
-  }
-
-  function formatMovieList () {
-    const res = searchResult.map ((item)=> {
-      const newItem = item;
-      const savedItem = savedMovies.find ((i)=> i.movieId === newItem.id);
-      newItem._id = savedItem ? savedItem._id : undefined;
-    }
-
-    )
-    console.log ("formated", res)
-    return res;
+  function handleMovieSave(savedId, id) {
+    const movieData = savedId
+      ? undefined
+      : searchResult.find((item) => item.id === id);
+    onMovieSave(movieData, savedId);
   }
 
   return (
@@ -86,7 +69,12 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
       <SearchForm onSearchSubmit={handleSearchSubmit} setSearch={setSearch} />
       <Preloader isVisible={isLoading} />
       <ErrorMessage text={errorMessage} />
-      <MoviesCardList cardsData={searchResult} savedMoviesData={savedMovies} onMovieSave ={handleMovieSave} isFold={true}/>
+      <MoviesCardList
+        cardsData={searchResult}
+        savedMoviesData={savedMovies}
+        onMovieSave={handleMovieSave}
+        isFold={true}
+      />
     </main>
   );
 }

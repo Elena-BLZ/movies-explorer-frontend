@@ -15,7 +15,7 @@ class MainApi {
     }).then(checkResponse);
   }
 
-  editProfile( email, name) {
+  editProfile(email, name) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       credentials: "include",
@@ -23,7 +23,6 @@ class MainApi {
       body: JSON.stringify({
         email: email,
         name: name,
-        
       }),
     }).then(checkResponse);
   }
@@ -35,8 +34,8 @@ class MainApi {
     }).then(checkResponse);
   }
 
-  addMovie(
-   { id, 
+  addMovie({
+    id,
     country,
     director,
     duration,
@@ -47,8 +46,7 @@ class MainApi {
     nameRU,
     nameEN,
     thumbnail,
-    }
-  ) {
+  }) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       credentials: "include",
@@ -63,7 +61,8 @@ class MainApi {
         trailerLink: trailerLink,
         nameRU: nameRU || " ",
         nameEN: nameEN || " ",
-        thumbnail: `https://api.nomoreparties.co/${image.formats.thumbnail.url}` || " ",
+        thumbnail:
+          `https://api.nomoreparties.co/${image.formats.thumbnail.url}` || " ",
         movieId: id,
       }),
     }).then(checkResponse);
