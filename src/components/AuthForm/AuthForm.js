@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
 import { useFormWithValidation } from "../Validator/Validator";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
+
 export default function AuthForm({
   formName,
   title,
@@ -11,7 +11,6 @@ export default function AuthForm({
   navLinkTo,
   navLinkText,
   onSubmit,
-  errorMessage,
 }) {
 
   const { values, handleChange, errors, isValid } =
@@ -75,7 +74,6 @@ export default function AuthForm({
         ></input>
         <span className="auth-form__error-message">{errors.password}</span>
       </label>
-      <ErrorMessage text={errorMessage} />
       <button
         className="auth-form__button app__button"
         type="submit"

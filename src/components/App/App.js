@@ -23,14 +23,17 @@ import "./App.css";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [savedMovies, setSavedMovies] = useState([]);
   const [infoToolTip, setInfoToolTip] = useState({});
 
   const history = useHistory();
 
-  function handleError(err) {
-    setErrorMessage(err.message);
+  function handleError(err, show) {
+    if (!show)
+    {
+      console.log ("Error: ", err.message);
+      return;
+    }
     setErrorPopup( err.message);
   }
 
@@ -50,7 +53,7 @@ function App() {
         .then((res) => {
           setCurrentUser(res);
         })
-        .catch((err) => handleError(err));
+        .catch((err) => handleError(err, true));
     }
   }, [loggedIn]);
 
@@ -61,7 +64,7 @@ function App() {
         .then((data) => {
           setSavedMovies(data);
         })
-        .catch((err) => handleError(err));
+        .catch((err) => handleError(err, true));
     }
   }, [loggedIn]);
 
@@ -86,7 +89,7 @@ function App() {
         handleLogin({ email, password });
       })
       .catch((err) => {
-        handleError(err);
+        handleError(err, true);
       });
   };
   function handleLogin({ email, password }) {
@@ -98,7 +101,7 @@ function App() {
           history.push("/movies");
         }
       })
-      .catch((err) => handleError(err));
+      .catch((err) => handleError(err, true));
   }
 
   function handleProfileEdit(email, name) {
@@ -108,7 +111,7 @@ function App() {
         setCurrentUser(res);
         return res;
       })
-      .catch((err) => handleError(err));
+      .catch((err) => handleError(err, true));
   }
 
   function handleMovieSave(movieData) {
@@ -117,7 +120,7 @@ function App() {
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
       })
-      .catch((err) => handleError(err));
+      .catch((err) => handleError(err, true));
   }
 
   function handleMovieUnSave(id) {
@@ -126,7 +129,7 @@ function App() {
       .then(() => {
         setSavedMovies((state) => state.filter((movie) => movie._id !== id));
       })
-      .catch((err) => handleError(err));
+      .catch((err) => handleError(err, true));
   }
 
   function handleMovieSaveStatusChange(movieData, saved_id) {
@@ -145,7 +148,7 @@ function App() {
         history.push("/");
         localStorage.clear();
       })
-      .catch((err) => handleError(err));
+      .catch((err) => handleError(err, true));
     };
 
   const handleTokenCheck = () => {
@@ -157,7 +160,7 @@ function App() {
           history.push("/movies");
         }
       })
-      .catch((err) => handleError(err));
+      .catch((err) => handleError(err, false));
     };
 
   return (
@@ -171,7 +174,7 @@ function App() {
             </Route>
             <Route path="/signup">
               <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
-              <Register handleRegister={handleRegister} error={errorMessage} />
+              <Register handleRegister={handleRegister} />
             </Route>
 
             <Route exact path="/">
