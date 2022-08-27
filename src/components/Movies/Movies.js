@@ -21,7 +21,7 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
   function handleSearchSubmit(searchLine, isShort) {
     setIsLoading(true);
     setErrorMessage("");
-    handleMoviesSearch(searchLine, isShort);
+    handleMoviesSearch(searchLine, isShort)
   }
 
   function handleMoviesSearch(searchLine, isShort) {
@@ -29,6 +29,7 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
     if (defaultData) {
       const data = JSON.parse(defaultData);
       setSearchResult(processMoviesSearch(data, searchLine, isShort));
+      setIsLoading(false);
       return;
     }
     getAllMovies()

@@ -34,9 +34,11 @@ export default function MoviesCardList({
         : CARDS_SHOW.w320.start
     );
     window.addEventListener("resize", handleResize);
-  }, []);
 
-  // remouve listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   function addCardsToShow() {
     const addCount =

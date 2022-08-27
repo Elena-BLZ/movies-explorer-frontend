@@ -10,3 +10,4 @@ export const SCREAN_WIDTH_L = 1280;
 export const SCREAN_WIDTH_M = 768;
 export const SCREAN_WIDTH_S = 320;
 
+ 

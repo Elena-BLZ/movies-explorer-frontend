@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
 import { useFormWithValidation } from "../Validator/Validator";
@@ -12,15 +12,18 @@ export default function AuthForm({
   navLinkText,
   onSubmit,
 }) {
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const { values, handleChange, errors, isValid } =
     useFormWithValidation();
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    onSubmit(values);
+    setIsDisabled (true);
+    onSubmit(values)
+    .then(()=> setIsDisabled (false))
+    .catch (()=>setIsDisabled (false));
   }
-
 
   return (
     <form
@@ -40,6 +43,7 @@ export default function AuthForm({
             name="name"
             value={values.name}
             onChange={handleChange}
+            disabled={isDisabled}
             required
           ></input>
           <span className="auth-form__error-message">{errors.name}</span>
@@ -56,6 +60,7 @@ export default function AuthForm({
           title="Например: test@test.ru"
           value={values.email}
           onChange={handleChange}
+          disabled={isDisabled}
           required
         ></input>
         <span className="auth-form__error-message">{errors.email}</span>
@@ -76,7 +81,7 @@ export default function AuthForm({
       <button
         className="auth-form__button app__button"
         type="submit"
-        disabled={!isValid}
+        disabled={!isValid && isDisabled}
       >
         {buttonText}
       </button>

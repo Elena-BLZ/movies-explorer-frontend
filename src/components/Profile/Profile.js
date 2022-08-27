@@ -6,6 +6,8 @@ import { useFormWithValidation } from "../Validator/Validator";
 
 export default function Profile({ onSubmit, onExit }) {
   const currentUser = useContext(CurrentUserContext);
+  const [isDisabled, setIsDisabled] = useState(false);
+
 
   const { values, handleChange, errors, isValid , setValues } =
     useFormWithValidation();
@@ -30,9 +32,13 @@ export default function Profile({ onSubmit, onExit }) {
   }
   function handleProfileSubmit(e) {
     e.preventDefault();
-  
+
     if ((values.email!== currentUser.email)||(values.name!== currentUser.name)) {
-       onSubmit(values.email, values.name);
+      setIsDisabled (true);
+
+      onSubmit(values.email, values.name)
+      .then(()=>setIsDisabled (false))
+      .catch(()=>setIsDisabled (false));
        return;
     }
     setError ("Данные не изменились");
@@ -57,7 +63,7 @@ export default function Profile({ onSubmit, onExit }) {
           value={values.name}
           onChange={handleChange}
           required
-          disabled={!inEditMode}
+          disabled={!inEditMode && isDisabled}
         ></input>
       </label>
       <label className="app__button profile-form__input-label">
@@ -72,7 +78,7 @@ export default function Profile({ onSubmit, onExit }) {
           value={values.email}
           onChange={handleChange}
           required
-          disabled={!inEditMode}
+          disabled={!inEditMode && isDisabled}
         ></input>
       </label>
       <ErrorMessage text={error} />
@@ -80,7 +86,7 @@ export default function Profile({ onSubmit, onExit }) {
         <button
           className="profile-form__save-button app__button"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid && isDisabled}
         >
           Сохранить
         </button>
