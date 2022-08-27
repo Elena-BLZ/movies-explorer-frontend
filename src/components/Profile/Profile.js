@@ -8,7 +8,6 @@ export default function Profile({ onSubmit, onExit }) {
   const currentUser = useContext(CurrentUserContext);
   const [isDisabled, setIsDisabled] = useState(false);
 
-
   const { values, handleChange, errors, isValid , setValues } =
     useFormWithValidation();
 
@@ -22,9 +21,7 @@ export default function Profile({ onSubmit, onExit }) {
   }, [currentUser]);
 
   useEffect(() => {
-    
     setError (inEditMode ? `${errors.email ? errors.email : ""} ${errors.name ? errors.name : ""}`: "");
-
   },[errors])
 
   function handleEditClick() {
@@ -39,7 +36,7 @@ export default function Profile({ onSubmit, onExit }) {
       onSubmit(values.email, values.name)
       .then(()=>setIsDisabled (false))
       .catch(()=>setIsDisabled (false));
-       return;
+      return;
     }
     setError ("Данные не изменились");
   }
