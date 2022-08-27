@@ -22,7 +22,7 @@ import "./App.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(undefined);
   const [savedMovies, setSavedMovies] = useState([]);
   const [infoToolTip, setInfoToolTip] = useState({});
 
@@ -161,10 +161,15 @@ function App() {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          history.push("/movies");
+          return;
         }
+        history.push("/signin");
+        setLoggedIn(false);
       })
-      .catch((err) => handleError(err, false));
+      .catch((err) => {
+        handleError(err, false);
+        setLoggedIn(false);
+      });
     };
 
   return (
@@ -172,14 +177,14 @@ function App() {
       <div className="app">
         <div className="app__container">
           <Switch>
-            <Route path="/signin">
+            <ProtectedRoute path="/signin" loggedIn={!loggedIn}>
               <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
               <Login handleLogin={handleLogin} />
-            </Route>
-            <Route path="/signup">
+            </ProtectedRoute>
+            <ProtectedRoute path="/signup" loggedIn={!loggedIn}>
               <Header theme="light" positionStyle="auth" isLogged={loggedIn} />
               <Register handleRegister={handleRegister} />
-            </Route>
+            </ProtectedRoute>
 
             <Route exact path="/">
               <Header theme="color" positionStyle="main" isLogged={loggedIn} />

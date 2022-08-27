@@ -36,7 +36,9 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
         setSearchResult(processMoviesSearch(data, searchLine, isShort));
         setIsLoading(false);
       })
-      .catch(() => setErrorMessage(MOVIES_SEARCH_ERROR));
+      .catch(() => {
+        setIsLoading(false);
+        setErrorMessage(MOVIES_SEARCH_ERROR)});
   }
 
   function processMoviesSearch(data, searchLine, isShort) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
-import { CARDS_SHOW } from "../../utils/constants";
+import { CARDS_SHOW, SCREAN_WIDTH_L, SCREAN_WIDTH_M } from "../../utils/constants";
 
 export default function MoviesCardList({
   cardsData,
@@ -27,20 +27,22 @@ export default function MoviesCardList({
     }
     setWindowWidth(document.documentElement.clientWidth);
     setShowCount(
-      windowWidth >= 1280
+      windowWidth >= SCREAN_WIDTH_L
         ? CARDS_SHOW.w1280.start
-        : windowWidth >= 768
+        : windowWidth >= SCREAN_WIDTH_M
         ? CARDS_SHOW.w768.start
         : CARDS_SHOW.w320.start
     );
     window.addEventListener("resize", handleResize);
   }, []);
 
+  // remouve listener on unmount
+
   function addCardsToShow() {
     const addCount =
-      windowWidth >= 1280
+      windowWidth >= SCREAN_WIDTH_L
         ? CARDS_SHOW.w1280.add
-        : windowWidth >= 768
+        : windowWidth >= SCREAN_WIDTH_M
         ? CARDS_SHOW.w768.add
         : CARDS_SHOW.w320.add;
     setShowCount(showCount + addCount);

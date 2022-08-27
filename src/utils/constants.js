@@ -6,3 +6,7 @@ export const CARDS_SHOW = {
   w768: { start: 8, add: 2 },
   w320: { start: 5, add: 2 },
 };
+export const SCREAN_WIDTH_L = 1280;
+export const SCREAN_WIDTH_M = 768;
+export const SCREAN_WIDTH_S = 320;
+
