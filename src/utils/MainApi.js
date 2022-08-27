@@ -1,7 +1,8 @@
 import { checkResponse } from "./utils";
-export const BASE_URL = `${window.location.protocol}${
-  process.env.REACT_APP_API_URL || "//localhost:3000"
-}`;
+// export const BASE_URL = `${window.location.protocol}${
+//   process.env.REACT_APP_API_URL || "//localhost:3000"
+// }`;
+const BASE_URL ='//localhost:3001'
 
 class MainApi {
   constructor({ baseUrl, headers }) {

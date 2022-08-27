@@ -109,35 +109,39 @@ function App() {
       .editProfile(email, name)
       .then((res) => {
         setCurrentUser(res);
+        setErrorPopup("Данные сохранены!");
         return res;
+        
       })
       .catch((err) => handleError(err, true));
   }
 
   function handleMovieSave(movieData) {
-    mainApi
+    return mainApi
       .addMovie(movieData)
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
+        return true;
       })
       .catch((err) => handleError(err, true));
   }
 
   function handleMovieUnSave(id) {
-    mainApi
+    return mainApi
       .deleteMovie(id)
       .then(() => {
         setSavedMovies((state) => state.filter((movie) => movie._id !== id));
+        return true;
       })
       .catch((err) => handleError(err, true));
   }
 
   function handleMovieSaveStatusChange(movieData, saved_id) {
     if (saved_id) {
-      handleMovieUnSave(saved_id);
-      return;
+      return handleMovieUnSave(saved_id);
+      ;
     }
-    handleMovieSave(movieData);
+    return handleMovieSave(movieData);
   }
 
   const signOut = () => {

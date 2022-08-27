@@ -17,8 +17,13 @@ export default function MoviesCard({
       ? "movies-card__save-button_mode_saved"
       : "movies-card__save-button_mode_unsaved");
   function handleSaveClick() {
-    onMovieSave(isSaved ? _id : undefined, id);
-    setIsSaved(!isSaved);
+    onMovieSave(isSaved ? _id : undefined, id)
+    .then((res)=>{
+      if (res)
+      {
+        setIsSaved(!isSaved);
+      }
+    });
   }
 
   return (

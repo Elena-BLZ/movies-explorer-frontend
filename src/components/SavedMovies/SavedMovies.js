@@ -28,7 +28,7 @@ export default function SavedMovies({ savedMovies, onMovieSave }) {
   }
 
   function handleMovieUnSave(savedId, id) {
-    onMovieSave(undefined, savedId);
+    return onMovieSave(undefined, savedId);
   }
 
   return (

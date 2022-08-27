@@ -2,38 +2,40 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Profile.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../Validator/Validator";
 
 export default function Profile({ onSubmit, onExit }) {
-
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+
+  const { values, handleChange, errors, isValid , setValues } =
+    useFormWithValidation();
+
   const [error, setError] = useState("");
 
   const [inEditMode, setInEditMode] = useState(false);
   useEffect(() => {
     if (currentUser) {
-      setName(currentUser.name);
-      setEmail(currentUser.email);
+      setValues({...values, "name": currentUser.name, "email": currentUser.email})
     }
   }, [currentUser]);
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
+  useEffect(() => {
+    
+    setError (inEditMode ? `${errors.email ? errors.email : ""} ${errors.name ? errors.name : ""}`: "");
+
+  },[errors])
+
   function handleEditClick() {
     setInEditMode(true);
   }
   function handleProfileSubmit(e) {
     e.preventDefault();
-    if (!email || !name) {
-      setError("Имя и email не могут быть пустыми");
-      return;
+  
+    if ((values.email!== currentUser.email)||(values.name!== currentUser.name)) {
+       onSubmit(values.email, values.name);
+       return;
     }
-    onSubmit(email, name);
+    setError ("Данные не изменились");
   }
   return (
     <form
@@ -52,8 +54,8 @@ export default function Profile({ onSubmit, onExit }) {
           type="text"
           placeholder="Имя"
           name="name"
-          value={name}
-          onChange={handleNameChange}
+          value={values.name}
+          onChange={handleChange}
           required
           disabled={!inEditMode}
         ></input>
@@ -65,8 +67,10 @@ export default function Profile({ onSubmit, onExit }) {
           className="profile-form__input"
           placeholder="Email"
           name="email"
-          value={email}
-          onChange={handleEmailChange}
+          pattern="\S+@\S+\.\S+"
+          title="Например: test@test.ru"
+          value={values.email}
+          onChange={handleChange}
           required
           disabled={!inEditMode}
         ></input>
@@ -76,7 +80,7 @@ export default function Profile({ onSubmit, onExit }) {
         <button
           className="profile-form__save-button app__button"
           type="submit"
-          disabled={error !== ""}
+          disabled={!isValid}
         >
           Сохранить
         </button>

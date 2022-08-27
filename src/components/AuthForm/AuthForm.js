@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
 import { useFormWithValidation } from "../Validator/Validator";
@@ -21,9 +21,6 @@ export default function AuthForm({
     onSubmit(values);
   }
 
-  useEffect(() => {
-    console.log(values);
-  }, []);
 
   return (
     <form
@@ -55,6 +52,8 @@ export default function AuthForm({
           className="auth-form__input"
           placeholder="Email"
           name="email"
+          pattern="\S+@\S+\.\S+"
+          title="Например: test@test.ru"
           value={values.email}
           onChange={handleChange}
           required

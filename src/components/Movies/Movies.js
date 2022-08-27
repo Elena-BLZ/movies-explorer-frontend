@@ -22,7 +22,6 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
     setIsLoading(true);
     setErrorMessage("");
     handleMoviesSearch(searchLine, isShort);
-    setIsLoading(false);
   }
 
   function handleMoviesSearch(searchLine, isShort) {
@@ -35,6 +34,7 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
     getAllMovies()
       .then((data) => {
         setSearchResult(processMoviesSearch(data, searchLine, isShort));
+        setIsLoading(false);
       })
       .catch(() => setErrorMessage(MOVIES_SEARCH_ERROR));
   }
@@ -61,7 +61,7 @@ export default function Movies({ getAllMovies, savedMovies, onMovieSave }) {
     const movieData = savedId
       ? undefined
       : searchResult.find((item) => item.id === id);
-    onMovieSave(movieData, savedId);
+   return onMovieSave(movieData, savedId);
   }
 
   return (
