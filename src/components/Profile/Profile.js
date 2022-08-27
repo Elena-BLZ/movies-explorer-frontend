@@ -60,7 +60,7 @@ export default function Profile({ onSubmit, onExit }) {
           value={values.name}
           onChange={handleChange}
           required
-          disabled={!inEditMode && isDisabled}
+          disabled={!inEditMode || isDisabled}
         ></input>
       </label>
       <label className="app__button profile-form__input-label">
@@ -75,7 +75,7 @@ export default function Profile({ onSubmit, onExit }) {
           value={values.email}
           onChange={handleChange}
           required
-          disabled={!inEditMode && isDisabled}
+          disabled={!inEditMode || isDisabled}
         ></input>
       </label>
       <ErrorMessage text={error} />
@@ -83,7 +83,7 @@ export default function Profile({ onSubmit, onExit }) {
         <button
           className="profile-form__save-button app__button"
           type="submit"
-          disabled={!isValid && isDisabled}
+          disabled={!isValid || isDisabled}
         >
           Сохранить
         </button>

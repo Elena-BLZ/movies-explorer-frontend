@@ -1,6 +1,4 @@
 import React, { useCallback } from "react";
-const validator = require('validator');
-
 
 //хук управления формой
 export function useForm() {

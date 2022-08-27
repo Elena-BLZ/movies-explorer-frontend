@@ -81,7 +81,7 @@ export default function AuthForm({
       <button
         className="auth-form__button app__button"
         type="submit"
-        disabled={!isValid && isDisabled}
+        disabled={!isValid || isDisabled}
       >
         {buttonText}
       </button>
