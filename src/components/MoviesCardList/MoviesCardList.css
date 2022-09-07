@@ -9,7 +9,15 @@
     column-gap: 28px;
     justify-items: center;
 }
-
+.movies-card-list__nothing {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 123px;
+}
 .movies-card-list__more-button {
     display: block;
     width: 100%;

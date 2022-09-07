@@ -1,37 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Profile.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../Validator/Validator";
 
-export default function Profile() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+export default function Profile({ onSubmit, onExit }) {
+  const currentUser = useContext(CurrentUserContext);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const { values, handleChange, errors, isValid , setValues } =
+    useFormWithValidation();
+
   const [error, setError] = useState("");
 
   const [inEditMode, setInEditMode] = useState(false);
-  
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
+  useEffect(() => {
+    if (currentUser) {
+      setValues({...values, "name": currentUser.name, "email": currentUser.email})
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    setError (inEditMode ? `${errors.email ? errors.email : ""} ${errors.name ? errors.name : ""}`: "");
+  },[errors])
+
   function handleEditClick() {
     setInEditMode(true);
   }
-  function handleProfileSubmit (e) {
+  function handleProfileSubmit(e) {
     e.preventDefault();
-    console.log ("Submit");
-    if (!email || !name) {
-      setError ("Имя и email не могут быть пустыми");
+
+    if ((values.email!== currentUser.email)||(values.name!== currentUser.name)) {
+      setIsDisabled (true);
+
+      onSubmit(values.email, values.name)
+      .then(()=>setIsDisabled (false))
+      .catch(()=>setIsDisabled (false));
       return;
     }
-    //onSubmit(email, password);
-    setError ("");
+    setError ("Данные не изменились");
   }
   return (
-    <form className="profile-form" name="profile-form" novalidate
-    onSubmit={handleProfileSubmit}>
-      <h2 className="profile-form__greeting">Привет, Виталий!</h2>
+    <form
+      className="profile-form"
+      name="profile-form"
+      noValidate
+      onSubmit={handleProfileSubmit}
+    >
+      <h2 className="profile-form__greeting">{`Привет, ${
+        currentUser && currentUser.name
+      }!`}</h2>
       <label className="app__button profile-form__input-label">
         Имя
         <input
@@ -39,10 +57,10 @@ export default function Profile() {
           type="text"
           placeholder="Имя"
           name="name"
-          value={name}
-          onChange={handleNameChange}
+          value={values.name}
+          onChange={handleChange}
           required
-          disabled = {!inEditMode}
+          disabled={!inEditMode || isDisabled}
         ></input>
       </label>
       <label className="app__button profile-form__input-label">
@@ -52,10 +70,12 @@ export default function Profile() {
           className="profile-form__input"
           placeholder="Email"
           name="email"
-          value={email}
-          onChange={handleEmailChange}
+          pattern="\S+@\S+\.\S+"
+          title="Например: test@test.ru"
+          value={values.email}
+          onChange={handleChange}
           required
-          disabled = {!inEditMode}
+          disabled={!inEditMode || isDisabled}
         ></input>
       </label>
       <ErrorMessage text={error} />
@@ -63,7 +83,7 @@ export default function Profile() {
         <button
           className="profile-form__save-button app__button"
           type="submit"
-          disabled={error!==""}
+          disabled={!isValid || isDisabled}
         >
           Сохранить
         </button>
@@ -79,6 +99,7 @@ export default function Profile() {
           <button
             className="profile-form__exit-button app__button"
             type="button"
+            onClick={onExit}
           >
             Выйти из аккаунта
           </button>

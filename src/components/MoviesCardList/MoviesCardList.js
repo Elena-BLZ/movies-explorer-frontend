@@ -1,47 +1,95 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
-import poster1 from "../../images/poster-1.jpg";
-import poster2 from "../../images/poster-2.jpg";
-import poster3 from "../../images/poster-3.jpg";
-import poster4 from "../../images/poster-4.jpg";
+import { CARDS_SHOW, SCREAN_WIDTH_L, SCREAN_WIDTH_M } from "../../utils/constants";
 
-export default function MoviesCardList() {
+export default function MoviesCardList({
+  cardsData,
+  savedMoviesData,
+  onMovieSave,
+  isFold,
+}) {
+
+  const [windowWidth, setWindowWidth] = useState(
+    document.documentElement.clientWidth
+  );
+  const [showCount, setShowCount] = useState(0);
+
+  function handleResize() {
+    setTimeout(() => {
+      setWindowWidth(document.documentElement.clientWidth);
+    }, 1000);
+  }
+  useEffect(() => {
+    if (!isFold) {
+      setShowCount(undefined);
+      return;
+    }
+    setWindowWidth(document.documentElement.clientWidth);
+    setShowCount(
+      windowWidth >= SCREAN_WIDTH_L
+        ? CARDS_SHOW.w1280.start
+        : windowWidth >= SCREAN_WIDTH_M
+        ? CARDS_SHOW.w768.start
+        : CARDS_SHOW.w320.start
+    );
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  function addCardsToShow() {
+    const addCount =
+      windowWidth >= SCREAN_WIDTH_L
+        ? CARDS_SHOW.w1280.add
+        : windowWidth >= SCREAN_WIDTH_M
+        ? CARDS_SHOW.w768.add
+        : CARDS_SHOW.w320.add;
+    setShowCount(showCount + addCount);
+  }
+
   return (
     <section className="movies-card-list">
+      {cardsData.length === 0 && localStorage.getItem("searchLine") && (
+        <p className="movies-card-list__nothing">Ничего не найдено</p>
+      )}
       <div className="movies-card-list__container">
-        <MoviesCard
-          name="В погоне за Бенкси"
-          timing="27 минут"
-          poster={poster1}
-          isSaved="true"
-        />
-        <MoviesCard
-          name="В погоне за Бенкси"
-          timing="27 минут"
-          poster={poster2}
-          isSaved="false"
-        />
-        <MoviesCard
-          name="В погоне за Бенкси"
-          timing="27 минут"
-          poster={poster3}
-          isSaved="false"
-        />
-        <MoviesCard
-          name="В погоне за Бенкси"
-          timing="27 минут"
-          poster={poster4}
-          isSaved="true"
-        />
-        <MoviesCard
-          name="В погоне за Бенкси"
-          timing="27 минут"
-          poster={poster1}
-          isSaved="true"
-        />
+        {cardsData.slice(0, showCount).map((card) => {
+          const cardId = card.id || card.movieId;
+          const savedItem = savedMoviesData.find(
+            (item) => item.movieId === cardId
+          );
+          const savedId = savedItem ? savedItem._id : undefined;
+          card._id = savedId;
+          return (
+            <MoviesCard
+              key={cardId}
+              id={cardId}
+              name={card.nameRU}
+              timing={card.duration}
+              poster={
+                card.image.url
+                  ? `https://api.nomoreparties.co/${card.image.url}`
+                  : card.image
+              }
+              trailerLink={card.trailerLink}
+              _id={card._id}
+              onMovieSave={onMovieSave}
+            />
+          );
+        })}
       </div>
-      <button className="app__button movies-card-list__more-button" type="button">Ещё</button>
+      {showCount < cardsData.length && (
+        <button
+          className="app__button movies-card-list__more-button"
+          type="button"
+          onClick={addCardsToShow}
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }

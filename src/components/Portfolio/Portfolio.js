@@ -10,6 +10,7 @@ export default function Portfolio() {
           <a
             href="https://github.com/Elena-BLZ/how-to-learn"
             target="_blank"
+            rel="noreferrer"
             aria-label="Статичный сайт"
             className="portfolio__item-name"
           >
@@ -18,6 +19,7 @@ export default function Portfolio() {
           <a
             href="https://github.com/Elena-BLZ/how-to-learn"
             target="_blank"
+            rel="noreferrer"
             aria-label="Статичный сайт"
             className="portfolio__item-pic"
           >
@@ -28,6 +30,7 @@ export default function Portfolio() {
           <a
             href="https://github.com/Elena-BLZ/russian-travel"
             target="_blank"
+            rel="noreferrer"
             aria-label="Адаптивный сайт"
             className="portfolio__item-name"
           >
@@ -36,6 +39,7 @@ export default function Portfolio() {
           <a
             href="https://github.com/Elena-BLZ/russian-travel"
             target="_blank"
+            rel="noreferrer"
             aria-label="Адаптивный сайт"
             className="portfolio__item-pic"
           >
@@ -46,6 +50,7 @@ export default function Portfolio() {
           <a
             href="https://github.com/Elena-BLZ/react-mesto-api-full"
             target="_blank"
+            rel="noreferrer"
             aria-label="Одностраничное приложение"
             className="portfolio__item-name"
           >
@@ -54,6 +59,7 @@ export default function Portfolio() {
           <a
             href="https://github.com/Elena-BLZ/react-mesto-api-full"
             target="_blank"
+            rel="noreferrer"
             aria-label="Одностраничное приложение"
             className="portfolio__item-pic"
           >

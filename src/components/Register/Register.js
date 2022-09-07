@@ -2,7 +2,7 @@ import React from 'react'
 import "./Register.css"
 import AuthForm from '../AuthForm/AuthForm'
 
-export default function Register() {
+export default function Register({handleRegister}) {
   return (
     <AuthForm
      formName="registerForm"
@@ -11,6 +11,7 @@ export default function Register() {
      navText="Уже зарегистрированы?" 
      navLinkTo="/signin"
      navLinkText="Войти"
+     onSubmit={handleRegister}
     />
   )
 }

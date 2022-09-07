@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 
-
 //хук управления формой
 export function useForm() {
   const [values, setValues] = React.useState({});
@@ -21,12 +20,12 @@ export function useFormWithValidation() {
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
+
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
-    console.log ("handlechange", values);
     setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
   };
@@ -40,5 +39,5 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm,setValues };
+  return { values, handleChange, errors, isValid, resetForm, setValues };
 }

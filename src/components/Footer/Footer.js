@@ -14,6 +14,7 @@ export default function Footer() {
             <a
               href="https://practicum.yandex.ru/"
               target="_blank"
+              rel="noreferrer"
               aria-label="Яндекс.Практикум"
               className="app__button footer__link"
             >
@@ -24,6 +25,7 @@ export default function Footer() {
             <a
               href="https://github.com/Elena-BLZ"
               target="_blank"
+              rel="noreferrer"
               aria-label="GitHub"
               className="footer__link app__button"
             >
